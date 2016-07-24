@@ -20,17 +20,30 @@ public class MessageResource {
 	MessageService messageService = new MessageService();
 	
 	@GET
-	@Path("/allMessage")
+	@Path("/allMessageXML")
 	@Produces(MediaType.APPLICATION_XML)
 	public List<Message> getMessagesXML(){
 		return messageService.getAllMessages();
 	}
 	
+	@GET
+	@Path("/allMessageJSON")
+	@Produces(MediaType.APPLICATION_JSON)
+	public List<Message> getMessagesJSON(){
+		return messageService.getAllMessages();
+	}
 	
 	@GET
-	@Path("/{messageId}")
+	@Path("/xml/{messageId}")
 	@Produces(MediaType.APPLICATION_XML)
 	public Message getMessageByIdXML(@PathParam("messageId") long messageId){
+		return  messageService.getMessage(messageId);
+	}
+	
+	@GET
+	@Path("/json/{messageId}")
+	@Produces(MediaType.APPLICATION_JSON)
+	public Message getMessageByIdJSON(@PathParam("messageId") long messageId){
 		return  messageService.getMessage(messageId);
 	}
 }
