@@ -3,7 +3,7 @@ package com.mc.messenger.resources;
 import java.util.*;
 
 import javax.ws.rs.*;
-import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.*;
 
 import com.mc.messenger.model.Message;
 import com.mc.messenger.service.MessageService;
@@ -45,5 +45,20 @@ public class MessageResource {
 	@Produces(MediaType.APPLICATION_JSON)
 	public Message getMessageByIdJSON(@PathParam("messageId") long messageId){
 		return  messageService.getMessage(messageId);
+	}
+	
+	@POST
+	@Path("/posttest")
+	@Produces(MediaType.APPLICATION_JSON)
+	public String addMessage(){
+		return "POST works";
+	}
+	
+	@POST
+	@Path("/addMessageJSON")
+	@Consumes(MediaType.APPLICATION_JSON)
+	@Produces(MediaType.APPLICATION_JSON)
+	public Message addMessageJSON(Message message){
+		return messageService.addMessage(message);
 	}
 }
