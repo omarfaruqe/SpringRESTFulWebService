@@ -31,8 +31,8 @@ public class MessageService {
 		return message;
 	}
 	
-	public Message updateMessage(Message message){
-		if(message.getId() <= 0){
+	public Message updateMessage(Message message) {
+		if (message.getId() <= 0) {
 			return null;
 		}
 		messagesDatabase.put(message.getId(), message);
