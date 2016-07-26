@@ -6,6 +6,7 @@ import javax.ws.rs.*;
 import javax.ws.rs.core.*;
 
 import com.mc.messenger.model.Message;
+import com.mc.messenger.resources.beans.MessageFilterBean;
 import com.mc.messenger.service.MessageService;
 
 @Path("/messages")
@@ -21,16 +22,14 @@ public class MessageResource {
 //		return messageService.getAllMessages();
 //	}
 	
-	// Retrieving all data in JSON format (accepting parameter)
+	// Retrieving all data in JSON format (accepting parameter using BeanParam)
 	@GET
-	public List<Message> getMessagesJSON(@QueryParam("year") int year,
-										@QueryParam("start") int start,
-										@QueryParam("size") int size) {
-		if(year>0){
-			return messageService.getAllMessagesForYear(year);
+	public List<Message> getMessagesJSON(@BeanParam MessageFilterBean filterBean) {
+		if(filterBean.getYear()>0){
+			return messageService.getAllMessagesForYear(filterBean.getYear());
 		}
-		if(start >= 0 && size >= 0){
-			return messageService.getAllMessagesPaginated(start, size);
+		if(filterBean.getStart() >= 0 && filterBean.getSize() >= 0){
+			return messageService.getAllMessagesPaginated(filterBean.getStart(), filterBean.getSize());
 		}
 		else{
 			return messageService.getAllMessages();
