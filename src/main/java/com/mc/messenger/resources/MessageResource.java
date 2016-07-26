@@ -64,4 +64,11 @@ public class MessageResource {
 	public Message deleteMessageJSON(@PathParam("messageId") long messageId) {
 		return messageService.removeMessage(messageId);
 	}
+	
+	// Retrieving sub resources
+//	@GET
+	@Path("/{messageId}/comments")
+	public CommentResource test() {
+		return new CommentResource();
+	}
 }

@@ -1,7 +1,6 @@
 package com.mc.messenger.model;
 
-import java.util.Date;
-
+import java.util.*;
 import javax.xml.bind.annotation.*;
 
 @XmlRootElement
@@ -10,6 +9,8 @@ public class Message {
 	private Date created;
 	private String message, author;
 
+	private Map<Long, Comment> comments = new HashMap<>();
+	
 	public Message() {
 	}
 
@@ -56,4 +57,12 @@ public class Message {
 		this.author = author;
 	}
 
+	@XmlTransient
+	public Map<Long, Comment> getComments() {
+		return comments;
+	}
+
+	public void setComments(Map<Long, Comment> comments) {
+		this.comments = comments;
+	}
 }
