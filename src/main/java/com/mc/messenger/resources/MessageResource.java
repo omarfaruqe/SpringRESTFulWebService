@@ -1,5 +1,6 @@
 package com.mc.messenger.resources;
 
+import java.net.URI;
 import java.util.*;
 
 import javax.ws.rs.*;
@@ -45,12 +46,14 @@ public class MessageResource {
 		return messageService.getMessage(messageId);
 	}
 
-	// Insert data amd return 201 Created status
+	// Insert data and return 201 Created status
 	@POST
-	public Response addMessageJSON(Message message) {
+	public Response addMessageJSON(Message message, @Context UriInfo uriInfo) {
 		Message newMessage = messageService.addMessage(message);
+		String newId = String.valueOf(newMessage.getId());
+		URI uri = uriInfo.getAbsolutePathBuilder().path(newId).build();
 		return Response
-				.status(Status.CREATED)
+				.created(uri)
 				.entity(newMessage)
 				.build();
 	}
