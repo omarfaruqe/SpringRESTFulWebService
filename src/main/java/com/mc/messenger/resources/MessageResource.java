@@ -4,6 +4,7 @@ import java.util.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import javax.ws.rs.core.Response.Status;
 
 import com.mc.messenger.model.Message;
 import com.mc.messenger.resources.beans.MessageFilterBean;
@@ -44,10 +45,14 @@ public class MessageResource {
 		return messageService.getMessage(messageId);
 	}
 
-	// Insert or add test (Need to specify body as message and content type)
+	// Insert data amd return 201 Created status
 	@POST
-	public Message addMessageJSON(Message message) {
-		return messageService.addMessage(message);
+	public Response addMessageJSON(Message message) {
+		Message newMessage = messageService.addMessage(message);
+		return Response
+				.status(Status.CREATED)
+				.entity(newMessage)
+				.build();
 	}
 
 	// Update message using messageId in JSON format
