@@ -1,9 +1,11 @@
 package com.mc.messenger.resources;
 
+import java.net.URI;
 import java.util.*;
 
 import javax.ws.rs.*;
 import javax.ws.rs.core.*;
+import javax.ws.rs.core.Response.Status;
 
 import com.mc.messenger.model.Message;
 import com.mc.messenger.resources.beans.MessageFilterBean;
@@ -44,10 +46,16 @@ public class MessageResource {
 		return messageService.getMessage(messageId);
 	}
 
-	// Insert or add test (Need to specify body as message and content type)
+	// Insert data and return 201 Created status
 	@POST
-	public Message addMessageJSON(Message message) {
-		return messageService.addMessage(message);
+	public Response addMessageJSON(Message message, @Context UriInfo uriInfo) {
+		Message newMessage = messageService.addMessage(message);
+		String newId = String.valueOf(newMessage.getId());
+		URI uri = uriInfo.getAbsolutePathBuilder().path(newId).build();
+		return Response
+				.created(uri)
+				.entity(newMessage)
+				.build();
 	}
 
 	// Update message using messageId in JSON format
