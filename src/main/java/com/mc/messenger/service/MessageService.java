@@ -3,6 +3,7 @@ package com.mc.messenger.service;
 import java.util.*;
 
 import com.mc.messenger.database.DatabaseClass;
+import com.mc.messenger.exception.DataNotFoundException;
 import com.mc.messenger.model.Message;
 
 public class MessageService {
@@ -44,7 +45,11 @@ public class MessageService {
 
 	// Retrieving specific message by its id
 	public Message getMessage(long id) {
-		return messagesDatabase.get(id);
+		Message message = messagesDatabase.get(id);
+		if(message == null){
+			throw new DataNotFoundException("Message with id "+id+" not found");
+		}
+		return message;
 	}
 
 	public Message addMessage(Message message) {

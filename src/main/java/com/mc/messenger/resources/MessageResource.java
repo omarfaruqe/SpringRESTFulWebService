@@ -63,7 +63,7 @@ public class MessageResource {
 	@Path("/{messageId}")
 	public Message updateMessageJSON(@PathParam("messageId") long messageId, Message message) {
 		message.setId(messageId);
-		return messageService.addMessage(message);
+		return messageService.updateMessage(message);
 	}
 
 	// Delete message by messageId in JSON format
